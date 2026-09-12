@@ -38,3 +38,22 @@ variable "endpoints" {
     policy              = optional(string)
   }))
 }
+
+variable "enable_dns_support" {
+  type        = bool
+  default     = true
+}
+
+variable "enable_dns_hostnames" {
+  type        = bool
+  default     = true
+}
+
+
+variable "enable_flow_logs" {
+  type        = bool
+}
+
+variable "log_retention_in_days" {
+  type        = number
+}
