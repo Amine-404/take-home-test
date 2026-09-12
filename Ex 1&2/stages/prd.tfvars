@@ -31,3 +31,6 @@ endpoints = {
     vpc_endpoint_type = "Gateway"
   }
 }
+
+enable_flow_logs      = true
+log_retention_in_days = 14
