@@ -1,0 +1,40 @@
+variable "aws_region" {
+  type = string
+}
+
+variable "stage" {
+  type = string
+}
+
+variable "vpc_name" {
+  type = string
+}
+
+variable "vpc_cidr" {
+  type = string
+}
+
+variable "public_subnets" {
+  type = map(object({
+    cidr_block        = string
+    availability_zone = string
+  }))
+}
+
+variable "private_subnets" {
+  type = map(object({
+    cidr_block        = string
+    availability_zone = string
+  }))
+}
+
+variable "endpoints" {
+  type = map(object({
+    service_name        = string
+    vpc_endpoint_type   = string
+    private_dns_enabled = optional(bool, true)
+    security_group_ids  = optional(list(string))
+    subnet_ids          = optional(list(string))
+    policy              = optional(string)
+  }))
+}
