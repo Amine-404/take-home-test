@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_log_group" "vpc_flow_logs" {
-  count = var.enable_flow_logs ? 1 : 0
+  count             = var.enable_flow_logs ? 1 : 0
   name              = "/aws/vpc/${var.vpc_name}-flow-logs"
   retention_in_days = var.log_retention_in_days
   tags = {
@@ -10,7 +10,7 @@ resource "aws_cloudwatch_log_group" "vpc_flow_logs" {
 
 resource "aws_iam_role" "vpc_flow_logs" {
   count = var.enable_flow_logs ? 1 : 0
-  name = "${var.vpc_name}-flow-logs-role"
+  name  = "${var.vpc_name}-flow-logs-role"
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -32,8 +32,8 @@ resource "aws_iam_role" "vpc_flow_logs" {
 
 resource "aws_iam_role_policy" "vpc_flow_logs" {
   count = var.enable_flow_logs ? 1 : 0
-  name = "${var.vpc_name}-flow-logs-policy"
-  role = aws_iam_role.vpc_flow_logs[0].id
+  name  = "${var.vpc_name}-flow-logs-policy"
+  role  = aws_iam_role.vpc_flow_logs[0].id
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -52,7 +52,7 @@ resource "aws_iam_role_policy" "vpc_flow_logs" {
 }
 
 resource "aws_flow_log" "vpc_flow_logs" {
-  count = var.enable_flow_logs ? 1 : 0
+  count                = var.enable_flow_logs ? 1 : 0
   log_destination      = aws_cloudwatch_log_group.vpc_flow_logs[0].arn
   log_destination_type = "cloud-watch-logs"
   iam_role_arn         = aws_iam_role.vpc_flow_logs[0].arn

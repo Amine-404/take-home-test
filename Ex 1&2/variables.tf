@@ -40,20 +40,48 @@ variable "endpoints" {
 }
 
 variable "enable_dns_support" {
-  type        = bool
-  default     = true
+  type    = bool
+  default = true
 }
 
 variable "enable_dns_hostnames" {
-  type        = bool
-  default     = true
+  type    = bool
+  default = true
 }
 
 
 variable "enable_flow_logs" {
-  type        = bool
+  type = bool
 }
 
 variable "log_retention_in_days" {
-  type        = number
+  type = number
+}
+
+variable "backup_bucket_name" {
+  type = string
+}
+
+variable "transition_to_glacier_days" {
+  type = number
+}
+
+variable "retention_days" {
+  type = number
+}
+
+variable "noncurrent_version_expiration_days" {
+  type = number
+}
+
+variable "uploader_role_arns" {
+  type = list(string)
+}
+
+variable "enable_versioning" {
+  type = bool
+}
+
+variable "abort_incomplete_multipart_upload_days" {
+  type = number
 }

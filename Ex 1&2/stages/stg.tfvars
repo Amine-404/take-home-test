@@ -34,3 +34,12 @@ endpoints = {
 
 enable_flow_logs      = true
 log_retention_in_days = 14
+
+
+backup_bucket_name                     = "my-backup-bucket-take-home-test-stg"
+transition_to_glacier_days             = 60
+retention_days                         = 180
+noncurrent_version_expiration_days     = 0
+uploader_role_arns                     = ["arn:aws:iam::123456789012:role/backup_uploader"]
+enable_versioning                      = true
+abort_incomplete_multipart_upload_days = 7   
