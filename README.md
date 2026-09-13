@@ -49,7 +49,7 @@
   ```
 
 - **terraform plan output** 
-VPC module is still included in this plan, so in total there is 7 reosurces to be created in the backup s3 module
+VPC module is still included in this plan, so in total there is 7 resources to be created in the backup s3 module
   ```bash
   Plan: 32 to add, 0 to change, 0 to destroy.
   ```
