@@ -68,7 +68,7 @@ sudo apt update && sudo apt install -y curl docker.io
 sudo usermod -aG docker $USER && newgrp docker
 
 # Minikube
-curl -LO [https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64](https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64)
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
 
 # Kubectl
