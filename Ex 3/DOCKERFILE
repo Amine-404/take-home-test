@@ -1,0 +1,17 @@
+FROM alpine:3.20
+
+ARG TARGETARCH=amd64
+
+RUN addgroup -g 1001 appgroup && adduser -u 1001 -G appgroup -D appuser
+
+WORKDIR /app
+
+COPY --chown=appuser:appgroup ./binaries/rest_1.0_linux_${TARGETARCH} /app/simple-app
+
+RUN chmod 555 /app/simple-app && chown appuser:appgroup /app/simple-app
+
+USER 1001
+
+EXPOSE 8080
+
+ENTRYPOINT ["/app/simple-app"]

@@ -53,3 +53,76 @@ VPC module is still included in this plan, so in total there is 7 resources to b
   ```bash
   Plan: 32 to add, 0 to change, 0 to destroy.
   ```
+
+## Exercise 3
+
+## 1. Prerequisites (WSL2 / Linux)
+
+If using Windows, run inside **WSL2** (`wsl --install` in PowerShell).
+
+Ensure all required CLI tools are installed:
+
+```bash
+# Docker & Curl
+sudo apt update && sudo apt install -y curl docker.io
+sudo usermod -aG docker $USER && newgrp docker
+
+# Minikube
+curl -LO [https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64](https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64)
+sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+
+# Kubectl
+curl -LO "[https://dl.k8s.io/release/$(curl](https://dl.k8s.io/release/$(curl) -L -s [https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl](https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl)"
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && rm kubectl
+
+# Helm
+curl [https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3](https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3) | bash
+```
+
+## 2. Deploy
+
+Make scripts executable and run deploy.sh with a required version tag and environment ( It actually only works for DEV ):
+
+```bash
+chmod +x deploy.sh destroy.sh
+./deploy.sh 1.0.0
+```
+
+The script automatically:
+
+Starts Minikube if it is not running.
+
+Builds the image directly inside Minikube's local Docker daemon (no remote registry needed).
+
+Deploys the application using Helm.
+
+Opens and verifies the port-forward tunnel to localhost.
+
+**Note on Upgrading / Versioning:** 
+- If a newer release of the service is provided:
+	1. Copy the new Linux binary into the `binaries/` directory (ensure it matches the name configured in the `Dockerfile`).
+	2. Run `./deploy.sh <new-version>`.
+Specifying an incremented version tag creates a separate container image inside Minikube, preserving previous images locally so you can easily roll back or switch versions without rebuilding.
+
+
+## 3. Verify
+
+Query the endpoint in a separate terminal:
+```bash
+curl http://localhost:8080/hello-world
+```
+
+Expected response:
+
+```bash
+{"message":"Hello World!"}
+```
+
+## 4. Destroy
+
+to destroy the whole minikube cluster, run the following script:
+
+```bash
+./destroy.sh
+```
+
